@@ -2,12 +2,12 @@
 
 function authCheck(req, res) {
 
-  let currentUser = req.dataFromMiddleWare.currentUser
+  let currentUser = req.dataFromMiddleware.currentUser
 
 
   let objToSend = {
     'isSuccess': true,
-    'currentUser': currentUser
+    'currentUser': currentUser.userName
   }
 
   res.send( JSON.stringify(objToSend) )

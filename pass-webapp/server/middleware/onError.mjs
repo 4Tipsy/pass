@@ -1,6 +1,6 @@
 
-function onError(error, req, res) {
-  
+function onError(error, req, res, next) {
+
 
   let objToSend = {
     'isSuccess': false,

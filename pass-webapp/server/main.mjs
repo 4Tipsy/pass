@@ -25,12 +25,9 @@ const app = express()
 
 
 // middleware init
-app.use(cors)
+//app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-app.use(auth) // get currentUser
-app.use(getCurrentFolder) // get currentFolder
 
 
 
@@ -40,7 +37,7 @@ app.use(getCurrentFolder) // get currentFolder
 /* routes */
 
 // checks
-app.post('/authCheck', authCheck)
+app.post('/authCheck', auth, authCheck)
 
 
 // user interactions
@@ -48,9 +45,13 @@ app.post('/login', login)
 
 
 // files interactions
-app.post('/getFilesList', getFilesList)
+app.post('/getFilesList', auth, getCurrentFolder, getFilesList)
 
-app.post('/getFile', getFile)
+app.post('/getFile', auth, getCurrentFolder, getFile)
+
+app.get('/', (req, res) => {
+  res.send('PASS')
+})
 
 
 /* --- */

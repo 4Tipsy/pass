@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken'
+
 import fs from 'fs'
 
 
@@ -6,7 +8,7 @@ function login(req, res, next) {
   
   try {
     
-    let {userName, userPassword} = req.body.loginData
+    let [userName, userPassword] = req.body.loginData
 
 
     // find such user

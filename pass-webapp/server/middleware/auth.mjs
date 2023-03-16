@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import fs from 'fs'
 
 
-function authUser(req, res, next) {
+function auth(req, res, next) {
 
 
   try {
@@ -11,7 +11,7 @@ function authUser(req, res, next) {
     // verify jwt token
     let authToken = req.body.authToken
 
-    let [userId, userPassword] = jwt.verify(authToken, global.JWT_SECRET)
+    let {userId, userPassword} = jwt.verify(authToken, global.JWT_SECRET)
 
 
     
@@ -37,6 +37,7 @@ function authUser(req, res, next) {
 
 
     // pass user to next middleware
+    req.dataFromMiddleware = {}
     req.dataFromMiddleware.currentUser = currentUser
 
 
@@ -46,7 +47,7 @@ function authUser(req, res, next) {
     
 
   } catch (error) {
-    
+
     next(error)
   }
 
@@ -54,4 +55,4 @@ function authUser(req, res, next) {
 }
 
 
-export default authUser
+export default auth
