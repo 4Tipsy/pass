@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 
 
 
@@ -6,7 +7,7 @@ function getFilesList(req, res, next) {
   
   try {
 
-    let currentFolder = req.dataFromMiddleWare.currentFolder
+    let currentFolder = req.dataFromMiddleware.currentFolder
 
 
     // get data about files and folders in currentFolder

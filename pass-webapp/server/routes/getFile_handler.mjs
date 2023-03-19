@@ -1,14 +1,14 @@
 import fs from 'fs'
+import path from 'path'
 
 
-
-function getFile(req, res, next) {
+function getFile_handler(req, res, next) {
   
   try {
     
     let fileToGet = req.body.fileToGet
     
-    let currentFolder = req.dataFromMiddleWare.currentFolder
+    let currentFolder = req.dataFromMiddleware.currentFolder
 
     fileToGet = path.join(currentFolder, fileToGet)
 
@@ -34,6 +34,8 @@ function getFile(req, res, next) {
     // if it is file
     } else {
 
+      let fileSizeInBytes = fs.lstatSync(fileToGet).size
+      res.set('content-length', fileSizeInBytes)
       fs.createReadStream(fileToGet).pipe(res) // sendFile
       
     }
@@ -50,4 +52,4 @@ function getFile(req, res, next) {
 
 
 
-export default getFile
+export default getFile_handler

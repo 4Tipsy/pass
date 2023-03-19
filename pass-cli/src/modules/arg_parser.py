@@ -16,17 +16,16 @@ def arg_parser(raw_args, DialogHandler):
       args.append(raw_arg)
 
   
-
-
-
+  
+  
   # if -help
-  if (keys[0] in ['-h', '-help'] and len(raw_args) == 1):
+  if (len(keys) == 1 and keys[0] in ['-h', '-help'] and len(raw_args) == 1):
     DialogHandler.handle_help()
 
 
 
   # if -version
-  elif (keys[0] in ['-v', '-version'] and len(raw_args) == 1):
+  elif (len(keys) == 1 and keys[0] in ['-v', '-version'] and len(raw_args) == 1):
     DialogHandler.handle_version()
 
 
@@ -70,6 +69,23 @@ def arg_parser(raw_args, DialogHandler):
 
 
 
+    # ls
+    elif command in ['ls', 'list']:
+            
+      where_key = None
+
+      # key -[where] handle
+      if (len(keys) == 0 or keys[0] in ['-mere', '-m']):
+        where_key = 'mere'
+      elif keys[0] in ['-unmere', '-um']:
+        where_key = 'unmere'
+      elif keys[0] in ['-reserved', '-res', '-r']:
+        where_key = 'reserved'
+      else:
+        raise Exception(f'unknown key "{keys[0]}"')
+    
+      DialogHandler.handle_get_files_list(where_key)
+
 
 
     # send
@@ -94,7 +110,12 @@ def arg_parser(raw_args, DialogHandler):
         raise Exception(f'unknown key "{keys[0]}"')
 
       for file in files:
-        DialogHandler.handle_send(where_key, file)
+        try:
+          DialogHandler.handle_send(where_key, file)
+        except Exception as e:
+          print(f'[!] {e} [!]')
+
+
 
 
 
@@ -105,13 +126,13 @@ def arg_parser(raw_args, DialogHandler):
     # get
     elif command in ['get', 'g']:
 
-      if len(keys) > 1:
+      if len(keys) > 2:
         raise Exception('too many keys given')
       
 
       files = args[1:]
-      where_to_key = None
-      where_from_key = None
+      where_to_key_listed = []
+      where_from_key_listed = []
 
       # keys checking
       for key in keys:
@@ -123,10 +144,26 @@ def arg_parser(raw_args, DialogHandler):
           if len(key_) == 0:
             raise Exception(f'unknown key "{key}"')
           else:
-            where_to_key = key_[0].split('=', 1)[1]
+            where_to_key_listed.append( key_[0].split('=', 1)[1] ) # would be ['/some/path']
 
         else:
-          where_from_key = key
+          where_from_key_listed.append( key )
+
+
+
+      if len(where_to_key_listed) > 1 or len(where_from_key_listed) > 1:
+        raise Exception('too many keys given')
+
+
+
+      # prepare keys to be given to function
+      where_to_key = os.getcwd() # default
+      if len(where_to_key_listed) != 0:
+        where_to_key = where_to_key_listed[0]
+      where_from_key = 'mere' # default
+      if len(where_from_key_listed) != 0:
+        where_from_key = where_from_key_listed[0]
+        
 
 
       if where_from_key == None or where_from_key in ['-mere', '-m']:
@@ -138,14 +175,19 @@ def arg_parser(raw_args, DialogHandler):
 
 
 
-
       # check if dist exists
       if not os.path.exists(where_to_key):
         raise Exception(f'path "{where_to_key}" does not exist')
       
 
+
+      # downloading itself
+      print('downloading starts, please wait (it is python after all)')
       for file in files:
-        DialogHandler.handle_get(where_to_key, file)
+        try:
+          DialogHandler.handle_get(where_from_key, file, where_to_key)
+        except Exception as e:
+          print(f'[!] {e} [!]')
 
 
 

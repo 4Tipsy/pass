@@ -1,9 +1,10 @@
 [
-  {
-    "userId": 0,
-    "userName": "tester_0-user",
-    "userPassword": "zeron_zeron",
-    "userFolder": "tester_0-user---usr-folder",
-    "verified": true
-  }
+	{
+		"userId": 0,
+		"userName": "tester_0-user",
+		"userPassword": "zeron_zeron",
+		"userFolder": "tester_0-user",
+		"spaceUsed_inMb": 1500.000005722046,
+		"verified": true
+	}
 ]

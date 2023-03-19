@@ -1,4 +1,5 @@
 import json
+import tqdm
 
 
 class DialogHandler:
@@ -98,6 +99,43 @@ class DialogHandler:
 
 
 
+  # get
+  def handle_get(self, file_field, file_to_get, where_to_save) -> None:
+    print(f'> getting "{file_to_get}":')
+    self.ServerRequester.get_file(file_field, file_to_get, where_to_save)
+
+
+
+
+
+  # ls/list
+  def handle_get_files_list(self, file_field) -> None:
+    res = self.ServerRequester.get_files_list(file_field)
+
+    if res['isSuccess']:
+      print(f'[[ file_field = {file_field} ]]')
+
+      if len(res['filesList']) != 0:
+        for f in res['filesList']:
+          gap = '_' * (40 - len(f['name']) )
+          print(f"\"{f['name']}\" {gap} {f['size']}")
+      else:
+        print('no files here yet...')
+    
+    else:
+      print(res['error'])
+
+
+
+
+
+  def handle_send(self, file_field, file_to_send) -> None:
+    print(f'> sending "{file_to_send}":')
+    res = self.ServerRequester.send_file(file_field, file_to_send)
+    if res['isSuccess']:
+      print('[done]')
+    else:
+      raise Exception(res['error'])
 
 
 
@@ -124,6 +162,10 @@ class DialogHandler:
     print('               [-where=/path/where/to/download/ur/files]')
     print(' => get [files] from your PASS storage, u can choose file-field via (u know which) key')
     print('    if [-where=/some/path] is not given would download to current dir')
+    print('\n')
+    print('pass ls/list')
+    print(' => possible keys: [-mere/-m | -unmere/-um | -reserved/-res/-r]')
+    print(' => get list of files from your PASS storage, u can choose file-field via key')
     print('\n')
     print('\n')
     print('thanks for using pass, u can contact me here: "https://github.com/4Tipsy" :3')

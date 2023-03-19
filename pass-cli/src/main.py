@@ -37,6 +37,7 @@ def Main():
   try:
     raw_args = sys.argv[1:] # gets arguments after "pass" command
 
+
     # if 0 args
     if len(raw_args) == 0:
       raw_args = ['-help']
@@ -44,6 +45,7 @@ def Main():
     # if more then 15
     elif len(raw_args) > 15:
       raise Exception('can process only 15 args')
+    
 
     # processing
     arg_parser(raw_args, DialogHandler)
