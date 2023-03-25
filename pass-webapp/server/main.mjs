@@ -14,6 +14,7 @@ import onError from './middleware/onError.mjs'
 import authCheck from "./routes/authCheck.mjs"
 import getFile_handle from "./routes/getFile_handler.mjs"
 import sendFile_handle from "./routes/sendFile_handler.mjs"
+import delFile_handle from "./routes/delFile_handler.mjs"
 import getFilesList from "./routes/getFilesList.mjs"
 import login from "./routes/login.mjs"
 
@@ -52,6 +53,7 @@ app.post('/getFilesList', auth, getCurrentFolder, getFilesList)
 
 app.post('/getFile', auth, getCurrentFolder, getFile_handle)
 app.post('/sendFile', auth, getCurrentFolder, sendFile_handle)
+app.post('/delFile', auth, getCurrentFolder, delFile_handle)
 
 app.get('/', (req, res) => {
   res.send('PASS')

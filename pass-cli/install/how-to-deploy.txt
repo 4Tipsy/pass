@@ -1,0 +1,8 @@
+in deploy u should copy-paste here
+
+env/
+src/
+settings.json
+readme.md
+
+then give this folder to user

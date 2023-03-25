@@ -39,8 +39,9 @@ class ServerRequester:
 
 
 
-  def version(self) -> object:
-    return {'isSuccess': True, 'version': self.CURRENT_VERSION}
+  def version(self) -> list:
+    obj = {'version': self.CURRENT_VERSION}
+    return [200, obj]
 
 
 
@@ -48,7 +49,7 @@ class ServerRequester:
 
 
 
-  def login(self, login_data) -> object:
+  def login(self, login_data) -> list:
     
     data_to_send = {
       'loginData': login_data # [userName, userPassword]
@@ -56,13 +57,13 @@ class ServerRequester:
 
     res = requests.post(self.PASS_SERVER_ADDRESS + '/login', data_to_send )
 
-    return json.loads(res.content)
+    return [res.status_code, json.loads(res.content)]
     
 
 
 
 
-  def auth_check(self) -> object:
+  def auth_check(self) -> list:
 
     if self.AUTH_TOKEN == None:
 
@@ -78,7 +79,7 @@ class ServerRequester:
 
     res = requests.post(self.PASS_SERVER_ADDRESS + '/authCheck', data_to_send)
 
-    return json.loads(res.content)
+    return [res.status_code, json.loads(res.content)]
 
 
 
@@ -102,6 +103,9 @@ class ServerRequester:
     res = requests.post(self.PASS_SERVER_ADDRESS + '/getFile', data_to_send)
 
 
+    if res.status_code != 200:
+      res_content = json.loads(res.content)
+      raise Exception(res_content['error'])
 
 
     _path = os.path.join(where_to_save, file_to_get)
@@ -136,7 +140,7 @@ class ServerRequester:
 
 
 
-  def get_files_list(self, file_field) -> object:
+  def get_files_list(self, file_field) -> list:
 
 
     data_to_send = {
@@ -146,7 +150,8 @@ class ServerRequester:
     
     res = requests.post(self.PASS_SERVER_ADDRESS + '/getFilesList', data_to_send)
 
-    return json.loads(res.content)
+
+    return [res.status_code, json.loads(res.content)]
 
 
 
@@ -160,7 +165,7 @@ class ServerRequester:
 
 
 
-  def send_file(self, file_field, file_to_send) -> object:
+  def send_file(self, file_field, file_to_send) -> None:
 
 
     if not os.path.exists(file_to_send):
@@ -173,5 +178,33 @@ class ServerRequester:
 
     
     res = requests.post(self.PASS_SERVER_ADDRESS + '/sendFile', data_to_send, files={'file': open(file_to_send, 'rb')})
-  
-    return json.loads(res.content)
+
+    if res.status_code != 200:
+      res_content = json.loads(res.content)
+      raise Exception(res_content['error'])
+    
+
+
+
+
+
+
+
+
+  def del_file(self, file_field, file_to_del) -> None:
+
+
+    data_to_send = {
+      "authToken": self.AUTH_TOKEN,
+      "fileField": file_field,
+      "fileToDel": file_to_del,
+    }
+
+
+    # deleting the file
+    res = requests.post(self.PASS_SERVER_ADDRESS + '/delFile', data_to_send)
+
+
+    if res.status_code != 200:
+      res_content = json.loads(res.content)
+      raise Exception(res_content['error'])

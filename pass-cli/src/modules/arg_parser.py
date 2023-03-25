@@ -41,7 +41,7 @@ def arg_parser(raw_args, DialogHandler):
 
 
     # server-status
-    if command in ['server-status', 's', 'ss']:
+    if command in ['server-status', 'ss']:
       if len(args) != 1:
         raise Exception('extra args after "server-status"')
       else:
@@ -62,6 +62,14 @@ def arg_parser(raw_args, DialogHandler):
         raise Exception('wrong args of "login"')
       else:
         DialogHandler.handle_login(args[1], args[2])
+
+
+    # unlogin
+    elif command in ['unlogin', 'ul']:
+      if len(args) != 1:
+        raise Exception('extra args after "server-status"')
+      else:
+        DialogHandler.handle_unlogin()
 
 
 
@@ -109,9 +117,13 @@ def arg_parser(raw_args, DialogHandler):
       else:
         raise Exception(f'unknown key "{keys[0]}"')
 
+
+      # uploading itself
+      print('uploading starts, please wait (it is python after all)')
       for file in files:
         try:
           DialogHandler.handle_send(where_key, file)
+          print('[done]')
         except Exception as e:
           print(f'[!] {e} [!]')
 
@@ -188,6 +200,56 @@ def arg_parser(raw_args, DialogHandler):
           DialogHandler.handle_get(where_from_key, file, where_to_key)
         except Exception as e:
           print(f'[!] {e} [!]')
+
+
+
+
+
+
+
+
+
+
+
+    # del/d
+    elif command in ['del', 'd']:
+
+
+      if len(keys) > 1:
+        raise Exception('too many keys given')
+
+
+      files = args[1:]
+      where_key = None
+
+
+      # key -[where] handle
+      if (len(keys) == 0 or keys[0] in ['-mere', '-m']):
+        where_key = 'mere'
+      elif keys[0] in ['-unmere', '-um']:
+        where_key = 'unmere'
+      elif keys[0] in ['-reserved', '-res', '-r']:
+        where_key = 'reserved'
+      else:
+        raise Exception(f'unknown key "{keys[0]}"')
+
+
+      # deleting itself
+      for file in files:
+        try:
+          DialogHandler.handle_del(where_key, file)
+          print('[done]')
+        except Exception as e:
+          print(f'[!] {e} [!]')
+
+
+
+
+
+
+
+
+
 
 
 

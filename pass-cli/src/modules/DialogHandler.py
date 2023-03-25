@@ -1,4 +1,5 @@
 import json
+import os
 import tqdm
 
 
@@ -13,9 +14,9 @@ class DialogHandler:
 
   def handle_version(self) -> None:
 
-    res = self.ServerRequester.version()
+    [status, res] = self.ServerRequester.version()
 
-    if res['isSuccess']:
+    if status == 200:
       version = res['version']
 
       print(f'Current: {version}')
@@ -39,9 +40,9 @@ class DialogHandler:
 
       print('PASS is available')
 
-      res = self.ServerRequester.auth_check() # request
+      [status, res] = self.ServerRequester.auth_check() # request
 
-      if res['isSuccess']:
+      if status == 200:
         user = res['currentUser']
 
         print(f'successfully login as {user}')
@@ -66,22 +67,23 @@ class DialogHandler:
     print('login starting...')
 
     login_data = [user_name, user_password]
-    res = self.ServerRequester.login(login_data) # request
+    [status, res] = self.ServerRequester.login(login_data) # request
 
-    if res['isSuccess']:
+    if status == 200:
       
       settings = {}
       auth_token = res['authToken']
 
 
       # write new auth_token to settings.json
-      with open('../settings.json', 'r', encoding='utf-8') as read_file:
+      path_to_settings_json = os.path.join( os.path.dirname(os.path.abspath(__file__)) , 'settings.json' )
+      with open(path_to_settings_json, 'r', encoding='utf-8') as read_file:
         settings = json.load(read_file)
 
       
       settings['auth_token'] = auth_token
 
-      with open('../settings.json', 'w', encoding='utf-8') as write_file:
+      with open(path_to_settings_json, 'w', encoding='utf-8') as write_file:
         json.dump(settings, write_file, indent=4)
 
 
@@ -99,6 +101,32 @@ class DialogHandler:
 
 
 
+
+
+
+  # unlogin
+  def handle_unlogin(self) -> None:
+    
+    # write "None" instead of auth_token in settings.json
+    path_to_settings_json = os.path.join( os.path.dirname(os.path.abspath(__file__)) , 'settings.json' )
+    with open(path_to_settings_json, 'r', encoding='utf-8') as read_file:
+      settings = json.load(read_file)
+
+    
+    settings['auth_token'] = None
+
+    with open(path_to_settings_json, 'w', encoding='utf-8') as write_file:
+      json.dump(settings, write_file, indent=4)
+
+
+
+      print('success')
+
+
+
+
+
+
   # get
   def handle_get(self, file_field, file_to_get, where_to_save) -> None:
     print(f'> getting "{file_to_get}":')
@@ -110,9 +138,9 @@ class DialogHandler:
 
   # ls/list
   def handle_get_files_list(self, file_field) -> None:
-    res = self.ServerRequester.get_files_list(file_field)
+    [status, res] = self.ServerRequester.get_files_list(file_field)
 
-    if res['isSuccess']:
+    if status == 200:
       print(f'[[ file_field = {file_field} ]]')
 
       if len(res['filesList']) != 0:
@@ -128,14 +156,34 @@ class DialogHandler:
 
 
 
-
+  # send
   def handle_send(self, file_field, file_to_send) -> None:
     print(f'> sending "{file_to_send}":')
-    res = self.ServerRequester.send_file(file_field, file_to_send)
-    if res['isSuccess']:
-      print('[done]')
-    else:
-      raise Exception(res['error'])
+    self.ServerRequester.send_file(file_field, file_to_send)
+
+
+
+
+
+
+
+
+
+
+  # del
+  def handle_del(self, file_field, file_to_del) -> None:
+    print(f'> deleting {file_to_del}')
+    self.ServerRequester.del_file(file_field, file_to_del)
+
+
+
+
+
+
+
+
+
+
 
 
 

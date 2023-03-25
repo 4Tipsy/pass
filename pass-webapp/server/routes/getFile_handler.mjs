@@ -10,21 +10,21 @@ function getFile_handler(req, res, next) {
     
     let currentFolder = req.dataFromMiddleware.currentFolder
 
-    fileToGet = path.join(currentFolder, fileToGet)
+    let fileToGetPath = path.join(currentFolder, fileToGet)
 
 
 
     // checking if file exists
-    if ( !fs.existsSync(fileToGet) ) {
+    if ( !fs.existsSync(fileToGetPath) ) {
 
-      throw new Error(`${fileToGet} does not exist`)
+      throw new Error(`"${fileToGet}" does not exist`)
     }
 
 
 
 
     // if it is directory
-    if ( fs.lstatSync(fileToGet).isDirectory() ) {
+    if ( fs.lstatSync(fileToGetPath).isDirectory() ) {
 
 
       throw new Error('Downloading folders is unsupported now')
@@ -34,9 +34,9 @@ function getFile_handler(req, res, next) {
     // if it is file
     } else {
 
-      let fileSizeInBytes = fs.lstatSync(fileToGet).size
+      let fileSizeInBytes = fs.lstatSync(fileToGetPath).size
       res.set('content-length', fileSizeInBytes)
-      fs.createReadStream(fileToGet).pipe(res) // sendFile
+      fs.createReadStream(fileToGetPath).pipe(res) // sendFile
       
     }
 

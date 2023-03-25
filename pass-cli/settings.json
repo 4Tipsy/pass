@@ -1,7 +1,7 @@
 {
     "ATTENTION!!!": "please, does not change anything here by hands :(",
     "pass_server_address": "http://localhost:4243",
-    "auth_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjAsInVzZXJQYXNzd29yZCI6Inplcm9uX3plcm9uIiwiaWF0IjoxNjc4OTE4NjI2fQ.HPCS4C5hEytWhuwM3UkOdXGCJLLuprg6B80CM6dQ_tE",
+    "auth_token": null,
     "app_info": {
         "version": "v0.1",
         "author": "4Tipsy",

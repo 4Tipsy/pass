@@ -1,13 +1,14 @@
 import sys
 import json
-
+import os
 
 
 
 # globals init from settings.json
 GLOBALS = {}
 
-with open('../settings.json', 'r', encoding='utf-8') as read_file:
+path_to_settings_json = os.path.join( os.path.dirname(os.path.abspath(__file__)) , 'settings.json' )
+with open(path_to_settings_json, 'r', encoding='utf-8') as read_file:
   settings = json.load(read_file)
 
   GLOBALS['pass_server_address'] = settings['pass_server_address']

@@ -16,7 +16,7 @@ function getFilesList(req, res, next) {
 
         let name = el
         let sizeInBytes = fs.lstatSync( path.join(currentFolder, el) ).size
-        let size = `${sizeInBytes / 1000000} MB`
+        let size = `${(sizeInBytes / 1024) / 1024} MB`
 
 
         return {'name': name, 'size': size}
