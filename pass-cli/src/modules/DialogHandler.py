@@ -76,7 +76,7 @@ class DialogHandler:
 
 
       # write new auth_token to settings.json
-      path_to_settings_json = os.path.join( os.path.dirname(os.path.abspath(__file__)) , 'settings.json' )
+      path_to_settings_json = os.path.join(os.path.dirname(os.path.abspath(__file__)) , '../settings.json' )
       with open(path_to_settings_json, 'r', encoding='utf-8') as read_file:
         settings = json.load(read_file)
 
@@ -108,7 +108,7 @@ class DialogHandler:
   def handle_unlogin(self) -> None:
     
     # write "None" instead of auth_token in settings.json
-    path_to_settings_json = os.path.join( os.path.dirname(os.path.abspath(__file__)) , 'settings.json' )
+    path_to_settings_json = os.path.join(os.path.dirname(os.path.abspath(__file__)) , '../settings.json' )
     with open(path_to_settings_json, 'r', encoding='utf-8') as read_file:
       settings = json.load(read_file)
 
@@ -201,9 +201,16 @@ class DialogHandler:
     print('pass login/l [username] [password]')
     print(' => login to PASS')
     print('\n')
+    print('pass unlogin/ul')
+    print(' => unlogin from PASS')
+    print('\n')
     print('pass send/put/s/p [file... or many... just like "npm i"]')
     print(' => possible keys: [-mere/-m | -unmere/-um | -reserved/-res/-r]')
     print(' => send [files] to your PASS storage, u can choose file-field via key')
+    print('\n')
+    print('pass del/d [file... or many... just like "npm i"]')
+    print(' => possible keys: [-mere/-m | -unmere/-um | -reserved/-res/-r]')
+    print(' => delete [files] from your PASS storage, u can choose file-field via key')
     print('\n')
     print('pass get/g [file... or many... just like "npm i"]')
     print(' => possible keys: [-mere/-m | -unmere/-um | -reserved/-res/-r]')
@@ -216,4 +223,4 @@ class DialogHandler:
     print(' => get list of files from your PASS storage, u can choose file-field via key')
     print('\n')
     print('\n')
-    print('thanks for using pass, u can contact me here: "https://github.com/4Tipsy" :3')
+    print('thanks for using pass-cli, u can contact me here: "https://github.com/4Tipsy" :3')

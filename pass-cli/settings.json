@@ -1,9 +1,10 @@
 {
     "ATTENTION!!!": "please, does not change anything here by hands :(",
-    "pass_server_address": "http://localhost:4243",
+    "_": "",
+    "pass_server_address": "http://pass.uxp.ru",
     "auth_token": null,
     "app_info": {
-        "version": "v0.1",
+        "version": "v1.0 - alpha",
         "author": "4Tipsy",
         "source": "https://github.com/4Tipsy/pass/pass-cli"
     }

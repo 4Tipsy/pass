@@ -1,8 +1,13 @@
-in deploy u should copy-paste here
+when deploy u should copy-paste here:
 
+```
 env/
 src/
 settings.json
 readme.md
 
-then give this folder to user
+install.py
+```
+
+then give this folder to user (as archive or something)
+when user run install.py and its done

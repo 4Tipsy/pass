@@ -20,11 +20,8 @@ while True:
   else:
 
     print('\n' + where_inputed + ' contains:')
-    f = []
-    for (dirpath, dirnames, filenames) in os.walk(where_inputed):
-      f.extend(filenames)
-      break
-    print(f)
+    print(os.listdir(where_inputed))
+
 
 
     if input('proceed? (y/n) > ') == 'y':
@@ -38,9 +35,9 @@ while True:
 
 
 # creating the dir, and copying the files
-if os.path.exists('./pass-cli'):
-  os.mkdir('./pass-cli')
-  where_to_install = os.path.join(where_to_install, 'pass-cli')
+where_to_install = os.path.join(where_to_install, 'pass-cli')
+if not os.path.exists(where_to_install):
+  os.mkdir(where_to_install)
 
 else:
   print('"pass-cli" folder already exist there!')
@@ -56,7 +53,7 @@ for dir in ['./src', './env']:
   print(f'{dir} copied')
 
 for file in ['./settings.json']:
-  dest = os.path.join(where_to_install, dir)
+  dest = os.path.join(where_to_install, file)
   shutil.copyfile(file, dest)
   print(f'{file} copied')
 
@@ -73,9 +70,9 @@ if input('write alias? (y/n)') != 'y':
 if (sys.platform == 'linux') or (sys.platform == 'linux2'):
 
 
-  start_env = 'source' + os.path.join(where_to_install, 'env/bin/activate')
-  start_py = 'python' + os.path.join(where_to_install, 'main.py')
-  alias = f'alias pass="{start_env} && {start_py}"\n'
+  start_env = 'source ' + os.path.join(where_to_install, 'env/bin/activate')
+  start_py = 'python ' + os.path.join(where_to_install, 'src/main.py')
+  alias = f'alias pass="{start_env} && {start_py} && deactivate"\n'
 
 
   # write to .bashrc
@@ -90,7 +87,7 @@ if (sys.platform == 'linux') or (sys.platform == 'linux2'):
 
 
   # instead of reload
-  os.system('source ~/.bashrc')
+  print('reload or "source ~/.bashrc"')
 
 
 
@@ -98,6 +95,7 @@ if (sys.platform == 'linux') or (sys.platform == 'linux2'):
 
 elif (sys.platform == 'win32'):
   print('how to make this on 2in i still dont know, sorry')
+  input()
 
 
 

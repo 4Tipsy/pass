@@ -7,7 +7,7 @@ import os
 # globals init from settings.json
 GLOBALS = {}
 
-path_to_settings_json = os.path.join( os.path.dirname(os.path.abspath(__file__)) , 'settings.json' )
+path_to_settings_json = os.path.join(os.path.dirname(os.path.abspath(__file__)) , '../settings.json' )
 with open(path_to_settings_json, 'r', encoding='utf-8') as read_file:
   settings = json.load(read_file)
 
