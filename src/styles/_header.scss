@@ -1,0 +1,138 @@
+
+
+
+header {
+  background-color: var(--color-1);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.header {
+
+  &-inner {
+    width: 85%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+
+  &__logo-container {
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+  }
+
+
+  /* setting and acc btns */
+  &__btn {
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+
+    $btn-size: calc(2.5vh - 0.1vw);
+    &__text {
+      font-size: calc($btn-size * 1.2);
+
+      margin-left: 0.8vw;
+    }
+    &__icon {
+      height: $btn-size;
+      width: $btn-size;
+    }
+  }
+
+
+}
+
+
+/* logo */
+$logo-size: calc(5vh - 0.25vw);
+.logo__text {
+  font-size: calc($logo-size * 1.2);
+
+  margin-left: 0.8vw;
+}
+.logo__icon {
+  height: $logo-size;
+  width: $logo-size;
+}
+
+
+
+/* media! */
+.header__acc-btn {margin-left: 2vw;}
+
+.header__btns-section_desktop-ver {
+
+  display: flex;
+  background-color: var(--color-1);
+}
+@media (max-width: 768px) {
+  .header__btns-section_desktop-ver { display: none };
+  .file-field-choose-section__gap { display: none };
+}
+
+.header__btns-section_mobile-ver {
+
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 1.1vw 0;
+
+  width: 100%;
+  background-color: var(--color-1);
+  display: flex;
+  justify-content: space-around;
+}
+@media (min-width: 768px) {
+  .header__btns-section_mobile-ver { display: none };
+}
+
+
+
+/* file-field choose section */
+.file-field-choose-section {
+
+  background-color: var(--color-2);
+  display: flex;
+  justify-content: space-around;
+
+
+}
+.file-field-choose-btns-wrapper {
+  display: flex;
+
+}
+.file-field-choose-btn {
+  width: 20vw;
+
+  background-color: var(--color-6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  padding: calc(1.8vh + 0.2vw);
+  font-size: calc(2.5vh - 0.1vw);
+
+
+  &._active {
+    background-color: var(--color-4);
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+}

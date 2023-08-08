@@ -1,0 +1,143 @@
+.fs-manager-wrapper {
+  width: calc(100vw - 4vh);
+  max-height: 50vh;
+
+  padding: 2vh;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 3.3vh;
+}
+
+.fs-url {
+  font-size: calc(2.3vh - 0.15vw);
+}
+
+
+$fs-entity-width: max(11vh, 10vw);
+.fs-manager {
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, $fs-entity-width);
+  justify-content: space-between;
+
+
+  overflow-y: auto;
+  /* scroll customization is bellow */
+}
+.add-new-fse-btn {
+  width: 90%;
+  height: 90%;
+
+  border-radius: 17px;
+  border: 2px dashed var(--color-5);
+
+  align-self: center;
+  justify-self: center;
+
+
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+
+  &__icon {
+    width: 50%;
+    height: 50%;
+  }
+
+
+  cursor: pointer;
+  position: relative;
+
+
+  // hover highlight
+  &::before {
+    content: '';
+
+    border-radius: 17px;
+    background-color: var(--color-5);
+
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    width: calc(4px + 100%);
+    height: calc(4px + 100%);
+
+    opacity: 0;
+    transition: opacity 0.08s;
+  }
+  &:hover::before {
+    opacity: 0.3;
+  }
+}
+
+
+
+// entities
+.fs-entity {
+  width: 100%;
+
+  padding-bottom: 5px;
+  border-radius: 17px;
+
+  aspect-ratio: 4 / 5;
+  display: grid;
+  grid-template-rows: 5fr 1fr 1fr;
+
+  cursor: pointer;
+
+  transition: background-color 0.08s;
+  &:hover {
+    background-color: var(--color-2);
+  }
+}
+
+.fs-entity__name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: calc(2.3vh - 0.15vw);
+}
+.fs-entity__size {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: calc((2.3vh - 0.15vw) / 1.5);
+
+  opacity: 0.6;
+}
+
+.fs-entity__icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fs-entity__icon {
+  height: 90%;
+  width: 90%;
+}
+
+
+
+
+
+
+
+
+// .fs-manager scroll
+.fs-manager {
+
+  scrollbar-color: var(--color-1) var(--color-2);
+
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-1);
+  }
+  &::-webkit-scrollbar-track {
+    background-color: var(--color-2);
+  }
+}

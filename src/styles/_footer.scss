@@ -1,0 +1,78 @@
+.footer-section-wrapper {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+}
+
+
+.space-available-bar-section {
+
+  background-color: var(--color-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.space-available-bar-inner {
+
+  width: 85%; // same as header-inner
+  padding: 3vw 0;
+
+  display: grid;
+  column-gap: 2vw;
+  row-gap: 0.5vw;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "icon bar"
+                       "icon text-info";
+
+}
+
+.space-available-bar__icon {
+  grid-area: icon;
+}
+.space-available-bar__text-info {
+  grid-area: text-info;
+
+  font-size: calc(2.5vh - 0.1vw);
+}
+
+
+footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+
+  background-color: var(--color-1);
+}
+
+.footer-link-wrapper {
+  width: 100%;
+  padding: 2.5vh 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+$link-size: calc(2.5vh - 0.1vw);
+.footer-link {
+
+  font-size: $link-size;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  // "check pass-cli" one
+  &:last-of-type {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.footer-link-icon {
+  margin-right: 0.8vw;
+  height: calc($link-size * 1.3);
+}

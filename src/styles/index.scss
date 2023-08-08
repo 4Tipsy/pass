@@ -1,0 +1,30 @@
+@import 'font-kit';
+
+:root {
+  --color-1: #141426;
+  --color-2: #212138;
+  --color-3: #313849;
+  --color-4: #F66980;
+  --color-5: #ffffff;
+  --color-6: #1D1D30;
+
+  --default-font-size: 1rem;
+}
+
+body {
+  margin: 0;
+
+  color: var(--color-5);
+  background-color: var(--color-3);
+
+  font-family: 'Noto Sans Regular';
+}
+
+.colored-text {
+  color: var(--color-4);
+}
+
+
+@import 'header';
+@import 'footer';
+@import 'fs-manager';
