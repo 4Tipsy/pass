@@ -16,7 +16,7 @@
 .space-available-bar-inner {
 
   width: 85%; // same as header-inner
-  padding: 3vw 0;
+  padding: 2vw 0;
 
   display: grid;
   column-gap: 2vw;
@@ -43,6 +43,9 @@ footer {
   grid-template-rows: 1fr 1fr;
 
   background-color: var(--color-1);
+}
+@media (min-width: 768px) {
+  footer { grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-rows: 1fr; }
 }
 
 .footer-link-wrapper {

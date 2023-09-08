@@ -1,0 +1,178 @@
+.shading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+
+.alert, .confirm, .prompt {
+
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: var(--color-1);
+
+  padding: 2.2vw 3vw;
+
+
+
+  &__text {
+    color: var(--color-5);
+    font-size: calc(2.5vh - 0.1vw);
+    width: 100%;
+
+    margin-bottom: 3vw;
+  }
+
+
+  &__input {
+    width: calc(100% - 4vh);
+    border: 2px solid var(--color-5);
+    background-color: transparent;
+
+    padding: 2vh;
+    margin-bottom: 3vw;
+
+    font-size: calc((2.3vh - 0.15vw) / 1.5);
+    color: var(--color-5);
+  }
+
+
+  &__btns-block {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+
+
+    &__cancel-btn, &__ok-btn {
+      aspect-ratio: 175 / 42;
+      font-size: calc(2.5vh - 0.1vw);
+
+      padding: 0.5vh;
+      width: 20%;
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+
+      transition: transform 0.2s;
+      &:hover { transform: scale(1.04); }
+    }
+    &__cancel-btn {
+      color: var(--color-4);
+      border: 2px solid var(--color-4);
+
+      margin-right: 3vw;
+    }
+    &__ok-btn {
+      color: var(--color-1);
+      background-color: var(--color-4);
+      border: 2px solid var(--color-4);
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.add-new-fse {
+  aspect-ratio: 2 / 1.1;
+  width: calc(58vh - 6vw);
+  min-width: 40%;
+  max-width: 80%;
+
+  background-color: var(--color-1);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  position: relative;
+
+
+
+  &::before {
+    // annotation how to close the modal frame
+    content: "[tap outside to cancel]";
+
+    color: var(--color-5);
+
+    position: absolute;
+    right: 1%;
+    top: 0;
+    transform: translateY(-120%);
+  }
+
+
+  
+
+  &__new-entity-btn {
+
+    border-radius: 17px;
+    border: 2px dashed var(--color-5);
+
+    height: 75%; // 22vh * 2 = 44 from 55 total => 88 from 110 => about 75%
+    aspect-ratio: 4 / 5;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+    position: relative;
+    cursor: pointer;
+
+    // hover highlight
+    &::before {
+      content: '';
+
+      border-radius: 17px;
+      background-color: var(--color-5);
+
+      position: absolute;
+      left: -2px;
+      top: -2px;
+      width: calc(4px + 100%);
+      height: calc(4px + 100%);
+
+      opacity: 0;
+      transition: opacity 0.08s;
+    }
+    &:hover::before {
+      opacity: 0.3;
+    }
+
+
+    &__icon {width: 80%; height: 60%;}
+    &__text {font-size: calc(2.3vh - 0.15vw); color: var(--color-5);}
+  }
+}

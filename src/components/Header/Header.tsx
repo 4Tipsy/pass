@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRecoilState } from 'recoil'
 
 
 import { ReactComponent as LogoSvg } from '../../assets/icons/logo.svg'
@@ -6,11 +7,16 @@ import { ReactComponent as SettingsSvg } from '../../assets/icons/settings.svg'
 import { ReactComponent as AccSvg } from '../../assets/icons/acc.svg'
 
 
+// states
+import { fileFieldState } from '../../atoms/fsManagerAtoms'
+import { fsUrlState } from '../../atoms/fsManagerAtoms'
+
+
+
 interface HeaderProps {
   userName?: string;
   userVerified?: boolean;
 }
-
 
 /* MAIN COMPONENT */
 const Header: React.FC<HeaderProps> = ({userName, userVerified}) => {
@@ -46,9 +52,7 @@ const Header: React.FC<HeaderProps> = ({userName, userVerified}) => {
 
       <div className="file-field-choose-section">
         <div className='file-field-choose-btns-wrapper'>
-          <div className="file-field-choose-btn _active">mere</div>
-          <div className="file-field-choose-btn">unmere</div>
-          <div className="file-field-choose-btn"><span style={{textDecoration: 'line-through', opacity: '0.6'}}>reserved</span></div>
+          <ChooseFileField/>
         </div>
 
         <div className="file-field-choose-section__gap"></div>
@@ -62,10 +66,14 @@ const Header: React.FC<HeaderProps> = ({userName, userVerified}) => {
 const HeaderBtns: React.FC<HeaderProps> = ({userName, userVerified}) => {
 
 
+  
+
+
   return (
     <>
       <div className="header__settings-btn header__btn">
-        <SettingsSvg className='header__btn__icon' />  <div className="header__btn__text">Settings</div>
+        <SettingsSvg className='header__btn__icon' /> 
+        <div className="header__btn__text">Settings</div>
       </div>
       
       <div className="header__acc-btn header__btn">
@@ -88,5 +96,39 @@ const HeaderBtns: React.FC<HeaderProps> = ({userName, userVerified}) => {
     </>
   )
 }
+
+
+
+
+
+const ChooseFileField: React.FC = () => {
+
+
+  const [fileField, setFileField] = useRecoilState(fileFieldState)
+  const [, setFsUrl] = useRecoilState(fsUrlState)
+
+
+  return (
+    <>
+      <div onClick={ () => {setFileField('mere'); setFsUrl('/')} } 
+      className={fileField === 'mere' ? "file-field-choose-btn _active" : "file-field-choose-btn"}>mere</div>
+
+      <div onClick={ () => {setFileField('unmere'); setFsUrl('/')} } 
+      className={fileField === 'unmere' ? "file-field-choose-btn _active" : "file-field-choose-btn"}>unmere</div>
+
+      <div onClick={ () => {setFileField('reserved'); setFsUrl('/')} } 
+      className={fileField === 'reserved' ? "file-field-choose-btn _active" : "file-field-choose-btn"}><span style={{textDecoration: 'line-through', opacity: '0.6'}}>reserved</span></div>
+    </>
+  )
+}
+
+
+
+
+
+
+
+
+
 
 export default Header

@@ -18,6 +18,8 @@ body {
   background-color: var(--color-3);
 
   font-family: 'Noto Sans Regular';
+
+  overflow: hidden; // crunch
 }
 
 .colored-text {
@@ -28,3 +30,4 @@ body {
 @import 'header';
 @import 'footer';
 @import 'fs-manager';
+@import 'modal-frames';

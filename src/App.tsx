@@ -1,10 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+
 
 // components
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import FSManager from './components/FSManager/FSManager';
+import FSManager from './components/FsManager/FsManager';
+import AddNewFsEntity from './components/ModalFrames/AddNewFsEntity';
+import Alert from './components/DialogFrames/Alert';
+import Confirm from './components/DialogFrames/Confirm';
+import Prompt from './components/DialogFrames/Prompt';
 
 
 
@@ -16,9 +20,15 @@ function App() {
     <>
       <Header />
 
-      <FSManager fileField='mere' FSUrl='/' FSLayer={Array(90).fill({'name': 'ex', 'type': 'folder', 'sizeInMB': 400})} />
+      <FSManager fsLayer={Array(1).fill({'name': 'ekfwf', 'type': 'folder', 'fileType': 'other', 'sizeInMB': 400})} />
 
       <Footer spaceUsedInMB={9000} spaceAvailableInMB={10000}/>
+
+      <AddNewFsEntity/>
+
+      <Alert/>
+      <Confirm/>
+      <Prompt/>
     </>
   )
 }

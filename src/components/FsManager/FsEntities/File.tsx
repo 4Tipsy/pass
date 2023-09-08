@@ -4,12 +4,12 @@ import React from "react";
 
 import { ReactComponent as OtherFileSvg } from '../../../assets/icons/fs_other_file.svg'
 
-import FSEntity from "../../../types/FSEntity";
+import FsEntity from "../../../types/FsEntity";
 
 
 
 /* MAIN COMPONENT */
-const File: React.FC<FSEntity> = ({name, sizeInMB, fileType}) => {
+const File: React.FC<FsEntity> = ({name, sizeInMB, fileType}) => {
 
 
 
@@ -38,7 +38,7 @@ const File: React.FC<FSEntity> = ({name, sizeInMB, fileType}) => {
 
 
 
-const Svg_: React.FC<Pick<FSEntity, 'fileType'>> = ({fileType}) => {
+const Svg_: React.FC<Pick<FsEntity, 'fileType'>> = ({fileType}) => {
 
   /* proper svg img due to fileType */
 
@@ -49,10 +49,10 @@ const Svg_: React.FC<Pick<FSEntity, 'fileType'>> = ({fileType}) => {
       ? <OtherFileSvg className="fs-entity__icon"/>
     
       : fileType === 'txt'
-      ? <div/>
+      ? <OtherFileSvg className="fs-entity__icon"/>
       
       : fileType === 'other'
-      ? <div/>
+      ? <OtherFileSvg className="fs-entity__icon"/>
     
       : <div>this one should never be rendered as if entity is 'file' it should 100% have 'fileType' !== undefined</div>
       }

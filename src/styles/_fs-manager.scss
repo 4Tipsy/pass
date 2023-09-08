@@ -1,33 +1,42 @@
-.fs-manager-wrapper {
+
+$fs-manager-height: 40vh;
+.fs-manager-section {
   width: calc(100vw - 4vh);
-  max-height: 50vh;
+  height: 50vh;
 
   padding: 2vh;
 
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr $fs-manager-height;
   row-gap: 3.3vh;
 }
+.fs-manager-wrapper { height: $fs-manager-height; } // crunch | be careful!!!
 
 .fs-url {
-  font-size: calc(2.3vh - 0.15vw);
+  font-size: calc(2.5vh - 0.1vw);
+  margin-left: 1.8vw;
+  margin-top: 1vw;
 }
 
 
-$fs-entity-width: max(11vh, 10vw);
+$fs-entity-width: max(9vh, 8vw);
 .fs-manager {
+
+  width: calc(100vw - 4vh);
 
   display: grid;
   grid-template-columns: repeat(auto-fill, $fs-entity-width);
   justify-content: space-between;
+  gap: 0.8vh;
 
 
   overflow-y: auto;
-  /* scroll customization is bellow */
+  /* scroll customization bellow */
 }
-.add-new-fse-btn {
+.go-back-btn, .add-new-fse-btn {
+  aspect-ratio: 4 / 5;
   width: 90%;
-  height: 90%;
+
 
   border-radius: 17px;
   border: 2px dashed var(--color-5);
@@ -36,10 +45,10 @@ $fs-entity-width: max(11vh, 10vw);
   justify-self: center;
 
 
-
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   
 
   &__icon {
@@ -73,6 +82,15 @@ $fs-entity-width: max(11vh, 10vw);
   }
 }
 
+.go-back-btn::after {
+  content: 'Go back';
+  font-size: calc((2.3vh - 0.15vw) / 1.3);
+}
+.add-new-fse-btn::after {
+  content: 'New';
+  font-size: calc((2.3vh - 0.15vw) / 1.3);
+}
+
 
 
 // entities
@@ -84,7 +102,7 @@ $fs-entity-width: max(11vh, 10vw);
 
   aspect-ratio: 4 / 5;
   display: grid;
-  grid-template-rows: 5fr 1fr 1fr;
+  grid-template-rows: 1fr min-content min-content;
 
   cursor: pointer;
 
@@ -94,17 +112,18 @@ $fs-entity-width: max(11vh, 10vw);
   }
 }
 
+.fs-entity__name, .fs-entity__size {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .fs-entity__name {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
 
   font-size: calc(2.3vh - 0.15vw);
 }
 .fs-entity__size {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
 
   font-size: calc((2.3vh - 0.15vw) / 1.5);
 
@@ -119,25 +138,4 @@ $fs-entity-width: max(11vh, 10vw);
 .fs-entity__icon {
   height: 90%;
   width: 90%;
-}
-
-
-
-
-
-
-
-
-// .fs-manager scroll
-.fs-manager {
-
-  scrollbar-color: var(--color-1) var(--color-2);
-
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--color-1);
-  }
-  &::-webkit-scrollbar-track {
-    background-color: var(--color-2);
-  }
 }
